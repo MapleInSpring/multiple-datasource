@@ -23,7 +23,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 public class FooDbConfig {
 
     @Primary
-    @Bean(name = "dataSource")
+    @Bean(name = "fooDataSource")
     @ConfigurationProperties(prefix = "spring.datasource")
     public DataSource dataSource() {
         return DataSourceBuilder.create().build();
@@ -32,7 +32,7 @@ public class FooDbConfig {
     @Primary
     @Bean(name = "entityManagerFactory")
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(
-            EntityManagerFactoryBuilder builder, @Qualifier("dataSource") DataSource dataSource) {
+            EntityManagerFactoryBuilder builder, @Qualifier("fooDataSource") DataSource dataSource) {
         return builder.dataSource(dataSource).packages("com.multiple.multiple.datasource.foo.domain").persistenceUnit("foo")
                 .build();
     }
